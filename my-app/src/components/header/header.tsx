@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../redux/store';
 import './header.scss';
 
 export const Header = () => {
+  const isLogin = useAppSelector((state) => state.authReducer.isLogin);
   return (
     <header className='header'>
       <div className='header-container'>
@@ -18,12 +20,14 @@ export const Header = () => {
         >
           My Favourite
         </NavLink>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'active-link' : '')}
-          to='/login'
-        >
-          Login
-        </NavLink>
+        {!isLogin && (
+          <NavLink
+            className={({ isActive }) => (isActive ? 'active-link' : '')}
+            to='/login'
+          >
+            Login
+          </NavLink>
+        )}
       </div>
     </header>
   );
