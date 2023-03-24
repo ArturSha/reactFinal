@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Header } from './components/header/header';
-import { Login } from './components/login/login';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Header } from './components/header/Header';
+import { LoginForm } from './components/login/LoginForm';
 import { useAppSelector } from './redux/store';
 
 function App() {
@@ -12,7 +12,12 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path='/login' element={!isLogin ? <Login /> : null}></Route>
+          <Route
+            path='/login'
+            element={
+              !isLogin ? <LoginForm /> : <Navigate to={'/'} replace></Navigate>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

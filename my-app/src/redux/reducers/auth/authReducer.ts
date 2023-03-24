@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { apiAxios } from '../../components/service';
+import { apiAxiosAuth } from '../../../components/service';
 import { InitialStateType } from './authRequestTypes';
 
 const initialState: InitialStateType = {
   loading: false,
-  error: '',
+  error: null,
   isLogin: false,
 };
 
 export const getToken = createAsyncThunk(
   'token/getToken',
-  async function (api: string, { rejectWithValue }) {
+  async (api: string, { rejectWithValue }) => {
     try {
-      const response = await apiAxios.get(
+      const response = await apiAxiosAuth(
         `authentication/token/new?api_key=d72e13adb1190ab152f566a4fa9b8${api}`
       );
 
       localStorage.setItem('token', response.data.request_token);
 
       return response.data;
-    } catch (e: any) {
-      return e;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -42,19 +42,11 @@ const authSlice = createSlice({
       })
       .addCase(getToken.fulfilled, (state, payload) => {
         state.loading = false;
-        payload.payload.message
-          ? (state.error = payload.payload.message)
-          : (state.error = '');
-        payload.payload.success === true
-          ? (state.isLogin = true)
-          : (state.isLogin = false);
-        console.log(
-          'Артём, почему ответ 401 воспринимается как fulfilled, а не rejected ? P.S password is 135 '
-        );
+        state.isLogin = true;
       })
-      .addCase(getToken.rejected, (state, action) => {
+      .addCase(getToken.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = payload;
         state.isLogin = false;
       });
   },

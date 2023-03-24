@@ -1,5 +1,5 @@
 export type InitialStateType = {
-  error: null | string | unknown;
+  error: string | null | unknown;
   loading: boolean;
   isLogin: boolean;
 };
