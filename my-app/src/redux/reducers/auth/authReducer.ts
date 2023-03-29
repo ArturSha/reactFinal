@@ -3,10 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiAxiosAuth } from '../../../components/service';
 import { InitialStateType } from './authRequestTypes';
 
+const languageLocal = localStorage.getItem('language');
+
 const initialState: InitialStateType = {
   loading: false,
   error: null,
   isLogin: false,
+  userLanguage: languageLocal ?? 'en-EN',
 };
 
 export const getToken = createAsyncThunk(
@@ -33,6 +36,9 @@ const authSlice = createSlice({
     error: (state) => {
       state.isLogin = false;
     },
+    userLanguage: (state, action) => {
+      state.userLanguage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,7 +46,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = '';
       })
-      .addCase(getToken.fulfilled, (state, payload) => {
+      .addCase(getToken.fulfilled, (state) => {
         state.loading = false;
         state.isLogin = true;
       })
@@ -53,3 +59,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { userLanguage } = authSlice.actions;

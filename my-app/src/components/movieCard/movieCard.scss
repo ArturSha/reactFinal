@@ -1,0 +1,39 @@
+.card-container {
+  max-width: 200px;
+  min-width: 200px;
+  width: 100%;
+  display: flex;
+  border-radius: 0 0 5px 5px;
+  margin: 15px;
+  flex-direction: column;
+  background-color: rgb(37, 37, 37);
+
+  &__image {
+    height: 320px;
+    max-width: 200px;
+    font-size: 0;
+  }
+  &-description {
+    padding: 10px;
+    p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-top: 10px;
+      color: white;
+      font-size: 16px;
+    }
+  }
+  &-watchlist {
+    margin: 25px auto;
+    &__button {
+      color: #5799ef;
+      padding: 8px 20px;
+      background-color: rgb(59, 59, 59);
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}

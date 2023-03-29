@@ -1,18 +1,17 @@
 import { CircularProgress } from '@mui/material';
 import { Field, Formik, Form } from 'formik';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getToken } from '../../redux/reducers/auth/authReducer';
-import { AppDispatch, useAppSelector } from '../../redux/store';
-import { Container } from '../common/Сontainer';
-import eye from '../images/eye.png';
+import { getToken } from '../../../redux/reducers/auth/authReducer';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { Container } from '../../common/Сontainer';
+import eye from '../../images/eye.png';
 
 import './loginForm.scss';
 
 export const LoginForm = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const error = useAppSelector((state) => state.authReducer.error);
   const loading = useAppSelector((state) => state.authReducer.loading);
 
