@@ -7,8 +7,10 @@ import { Container } from '../../common/Сontainer';
 import eye from '../../images/eye.png';
 
 import './loginForm.scss';
+import { useTranslation } from '../../../hooks/useTranslations';
 
 export const LoginForm = () => {
+  const {t} = useTranslation()
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -33,12 +35,12 @@ export const LoginForm = () => {
           <CircularProgress sx={{ color: 'gold' }} />
         </Container>
       )}
-      <h2>Login</h2>
+      <h2>{t.loginPage.header}</h2>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values }) => (
           <Form className='form-container__form'>
             <div className='label-container'>
-              <label htmlFor='email'>E-mail</label>
+              <label htmlFor='email'>{t.loginPage.email}</label>
               <Field
                 className='form-container__field'
                 id='email'
@@ -62,7 +64,7 @@ export const LoginForm = () => {
                   alt='Show password'
                 />
               </div>
-              <label htmlFor='password'>Password</label>
+              <label htmlFor='password'>{t.loginPage.password}</label>
 
               <Field
                 autoComplete='on'
@@ -70,7 +72,7 @@ export const LoginForm = () => {
                 className='form-container__field'
                 id='password'
                 name='password'
-                placeholder='Password'
+                placeholder={t.loginPage.password}
               />
             </div>
 
@@ -81,7 +83,7 @@ export const LoginForm = () => {
               className='form-container__button'
               type='submit'
             >
-              Login
+              {t.loginPage.submit}
             </button>
           </Form>
         )}

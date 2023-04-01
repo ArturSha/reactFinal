@@ -6,10 +6,12 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { Container } from '../../common/Сontainer';
 import { MovieCard } from '../../movieCard/MovieCard';
 import './UpcomingMovieList.scss';
+import { useTranslation } from '../../../hooks/useTranslations';
 
 export const UpcomingMovieList = () => {
   const isLoading = useAppSelector((state) => state.movieListReducer.loading);
   const language = useAppSelector((state) => state.authReducer.userLanguage);
+  const {t} = useTranslation();
 
   const movies: Array<Result> = useAppSelector(
     (state) => state.movieListReducer.movieList
@@ -45,14 +47,14 @@ export const UpcomingMovieList = () => {
         onClick={prevPage}
         disabled={isLoading ? true : false || page === 1}
       >
-        Previous
+        {t.buttons.prev}
       </button>
       <button
         className='upcoming-container__button -next'
         onClick={nextPage}
         disabled={isLoading ? true : false}
       >
-        Next
+        {t.buttons.next}
       </button>
     </Container>
   );

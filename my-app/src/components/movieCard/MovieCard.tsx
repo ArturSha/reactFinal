@@ -3,8 +3,10 @@ import { MovieCardType } from './movieCardTypes';
 import pick from '../images/dark404.jpg';
 
 import './movieCard.scss';
+import { useTranslation } from '../../hooks/useTranslations';
 
 export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
+  const {t} = useTranslation()
   return (
     <Container className='card-container'>
       <div>
@@ -24,7 +26,7 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
       </div>
 
       <div className='card-container-watchlist'>
-        <button className='card-container-watchlist__button'>Watchlist</button>
+        <button className='card-container-watchlist__button'>+ {t.buttons.favourite}</button>
       </div>
     </Container>
   );

@@ -1,0 +1,20 @@
+{
+    "header": {
+        "links": {
+            "movies": "Movies",
+            "login": "Login",
+            "watchlist": "Watchlist"
+        }
+    },
+    "loginPage": {
+        "header": "Login",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Login"
+    },
+    "buttons" : {
+        "next": "Next",
+        "prev": "Previous",
+        "favourite": "Watchlist"
+    }
+}

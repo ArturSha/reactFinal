@@ -3,9 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { userLanguage } from '../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { Container } from '../common/Сontainer';
+import { useTranslation } from '../../hooks/useTranslations';
 import './header.scss';
 
+
 export const Header = () => {
+  const {t} = useTranslation()
   const isLogin = useAppSelector((state) => state.authReducer.isLogin);
   const dispatch = useAppDispatch();
   const userLanguageLocal = localStorage.getItem('language');
@@ -27,20 +30,20 @@ export const Header = () => {
           className={({ isActive }) => (isActive ? 'active-link' : 'link')}
           to='/'
         >
-          Movies
+          {t.header.links.movies}
         </NavLink>
         <NavLink
           className={({ isActive }) => (isActive ? 'active-link' : 'link')}
           to='/favourite'
         >
-          My Favourite
+          {t.header.links.watchlist}
         </NavLink>
         {!isLogin && (
           <NavLink
             className={({ isActive }) => (isActive ? 'active-link' : 'link')}
             to='/login'
           >
-            Login
+           {t.header.links.login}
           </NavLink>
         )}
         <Container className='header-container__select'>
@@ -51,7 +54,7 @@ export const Header = () => {
             onChange={handleChange}
           >
             <option value='en-EN'>EN</option>
-            <option value='ru-RU'>RU</option>
+            <option value='ru-RU'>РУ</option>
           </select>
         </Container>
       </Container>
