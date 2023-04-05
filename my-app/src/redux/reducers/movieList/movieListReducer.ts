@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiAxios } from '../../../components/service';
+import { apiAxios } from '../../../services/moviesApi';
 import { IncomingData, InitialStateType, Root } from './movieListReducerTypes';
 
 const initialState: InitialStateType = {
@@ -15,7 +15,7 @@ export const getUpcomingMovies = createAsyncThunk<
 >('movies/upcoming', async (data, { rejectWithValue }) => {
   try {
     const response = await apiAxios({
-      url: 'movie/upcoming',
+      url: 'upcoming',
       params: {
         page: data.page,
         language: data.language,

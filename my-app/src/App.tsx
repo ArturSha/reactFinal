@@ -4,6 +4,7 @@ import { Header } from './components/header/Header';
 import { LoginForm } from './components/pages/login/LoginForm';
 import { UpcomingMovieList } from './components/pages/upComingMovieList/UpcomingMovieList';
 import { useAppSelector } from './redux/store';
+import { MovieItem } from './components/pages/movieItem/MovieItem';
 
 function App() {
   const isLogin = useAppSelector((state) => state.authReducer.isLogin);
@@ -14,13 +15,22 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path='/' element={<UpcomingMovieList />}></Route>
+          <Route
+            path='/'
+            element={<Navigate to={'/upComing/1'}></Navigate>}
+          ></Route>
+          <Route path='/upComing/:p' element={<UpcomingMovieList />}></Route>
           <Route
             path='/login'
             element={
-              !isLogin ? <LoginForm /> : <Navigate to={'/'} replace></Navigate>
+              !isLogin ? (
+                <LoginForm />
+              ) : (
+                <Navigate to={'/upComing/1'} replace></Navigate>
+              )
             }
           ></Route>
+          <Route path='movie/:id' element={<MovieItem />}></Route>
         </Routes>
       </BrowserRouter>
     </>

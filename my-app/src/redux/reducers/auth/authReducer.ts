@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { apiAxiosAuth } from '../../../components/service';
+import { apiAxiosAuth } from '../../../services/authApi';
 import { InitialStateType } from './authRequestTypes';
 
 const languageLocal = localStorage.getItem('language');
@@ -17,7 +17,7 @@ export const getToken = createAsyncThunk(
   async (api: string, { rejectWithValue }) => {
     try {
       const response = await apiAxiosAuth(
-        `authentication/token/new?api_key=d72e13adb1190ab152f566a4fa9b8${api}`
+        `new?api_key=d72e13adb1190ab152f566a4fa9b8${api}`
       );
 
       localStorage.setItem('token', response.data.request_token);

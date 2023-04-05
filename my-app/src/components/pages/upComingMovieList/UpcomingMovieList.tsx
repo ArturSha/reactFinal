@@ -5,13 +5,20 @@ import { Result } from '../../../redux/reducers/movieList/movieListReducerTypes'
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { Container } from '../../common/Сontainer';
 import { MovieCard } from '../../movieCard/MovieCard';
-import './UpcomingMovieList.scss';
 import { useTranslation } from '../../../hooks/useTranslations';
+import { useNavigate, useParams } from 'react-router-dom';
+import './UpcomingMovieList.scss';
 
 export const UpcomingMovieList = () => {
+  const { p } = useParams();
+
   const isLoading = useAppSelector((state) => state.movieListReducer.loading);
+
   const language = useAppSelector((state) => state.authReducer.userLanguage);
-  const {t} = useTranslation();
+
+  const { t } = useTranslation();
+
+  const navigate = useNavigate();
 
   const movies: Array<Result> = useAppSelector(
     (state) => state.movieListReducer.movieList
@@ -23,18 +30,21 @@ export const UpcomingMovieList = () => {
 
   const nextPage = () => {
     setPage(page + 1);
+    navigate(`/upComing/${1 + page}`);
   };
   const prevPage = () => {
     setPage(page - 1);
+    navigate(`/upComing/${page - 1}`);
   };
   const data = {
-    page,
+    page: p,
     language,
   };
 
   useEffect(() => {
     dispatch(getUpcomingMovies(data));
-  }, [page, language]);
+    setPage(Number(p));
+  }, [p, language]);
 
   return (
     <Container className='upcoming-container'>

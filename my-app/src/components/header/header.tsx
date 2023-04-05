@@ -6,9 +6,8 @@ import { Container } from '../common/Сontainer';
 import { useTranslation } from '../../hooks/useTranslations';
 import './header.scss';
 
-
 export const Header = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const isLogin = useAppSelector((state) => state.authReducer.isLogin);
   const dispatch = useAppDispatch();
   const userLanguageLocal = localStorage.getItem('language');
@@ -28,7 +27,7 @@ export const Header = () => {
       <Container className='header-container'>
         <NavLink
           className={({ isActive }) => (isActive ? 'active-link' : 'link')}
-          to='/'
+          to={`upComing/1`}
         >
           {t.header.links.movies}
         </NavLink>
@@ -43,7 +42,7 @@ export const Header = () => {
             className={({ isActive }) => (isActive ? 'active-link' : 'link')}
             to='/login'
           >
-           {t.header.links.login}
+            {t.header.links.login}
           </NavLink>
         )}
         <Container className='header-container__select'>

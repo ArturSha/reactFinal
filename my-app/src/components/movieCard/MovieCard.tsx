@@ -1,12 +1,13 @@
 import { Container } from '../common/Сontainer';
 import { MovieCardType } from './movieCardTypes';
-import pick from '../images/dark404.jpg';
+import poster from '../images/dark404.jpg';
 
 import './movieCard.scss';
 import { useTranslation } from '../../hooks/useTranslations';
+import { Link } from 'react-router-dom';
 
 export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <Container className='card-container'>
       <div>
@@ -15,18 +16,22 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
           src={
             props.poster_path
               ? `https://image.tmdb.org/t/p/w200${props?.poster_path}`
-              : pick
+              : poster
           }
           alt='was not found'
         />
       </div>
       <div className='card-container-description'>
         <p>{props?.vote_average}</p>
-        <p>{props?.title}</p>
+        <Link to={`/movie/${props?.id}`}>
+          <p>{props?.title}</p>
+        </Link>
       </div>
 
       <div className='card-container-watchlist'>
-        <button className='card-container-watchlist__button'>+ {t.buttons.favourite}</button>
+        <button className='card-container-watchlist__button'>
+          + {t.buttons.favourite}
+        </button>
       </div>
     </Container>
   );

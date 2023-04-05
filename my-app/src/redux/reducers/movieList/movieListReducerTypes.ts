@@ -34,6 +34,6 @@ export interface Dates {
 }
 
 export interface IncomingData {
-  page: number;
+  page: string | undefined;
   language: string;
 }
