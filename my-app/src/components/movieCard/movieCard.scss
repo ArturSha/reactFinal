@@ -15,6 +15,22 @@
   }
   &-description {
     padding: 10px;
+
+    &__star {
+      padding-right: 5px;
+    }
+    &__rate {
+      margin-left: 5px;
+      padding: 5px 15px;
+      border-radius: 5px;
+      transition: 0.3s;
+      border: none;
+      background-color: transparent;
+
+      &:hover {
+        background-color: rgb(59, 59, 59);
+      }
+    }
     p {
       overflow: hidden;
       white-space: nowrap;

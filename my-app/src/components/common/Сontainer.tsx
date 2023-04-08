@@ -1,5 +1,5 @@
 type ContainerType = {
-  children: any;
+  children: React.ReactNode;
   className?: string;
   tabIndex?: number;
 };
@@ -10,4 +10,3 @@ export const Container = ({ children, className, tabIndex }: ContainerType) => {
     </div>
   );
 };
-console.log('Артём, тут не могу избавиться от any, помоги плз');

@@ -10,7 +10,7 @@ import './loginForm.scss';
 import { useTranslation } from '../../../hooks/useTranslations';
 
 export const LoginForm = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -88,7 +88,11 @@ export const LoginForm = () => {
           </Form>
         )}
       </Formik>
-      {error && <div className='form-container__error'>{error as string}</div>}
+      <>
+        {error && (
+          <div className='form-container__error'>{error as string}</div>
+        )}
+      </>
     </Container>
   );
 };

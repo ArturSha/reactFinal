@@ -1,21 +1,24 @@
 {
-    "header": {
-        "links": {
-            "movies": "Фильмы",
-            "login": "Войти",
-            "watchlist": "Мой список"
-        }
-    },
-    "loginPage": {
-        "header": "Войти",
-        "email": "Email",
-        "password": "Пароль",
-        "submit": "Войти"
-    },
-    "buttons" : {
-        "next": "Вперед",
-        "prev": "Назад",
-        "favourite": "Мой список"
-
+  "header": {
+    "links": {
+      "movies": "Фильмы",
+      "login": "Войти",
+      "watchlist": "Мой список"
     }
+  },
+  "loginPage": {
+    "header": "Войти",
+    "email": "Email",
+    "password": "Пароль",
+    "submit": "Войти"
+  },
+  "buttons": {
+    "next": "Вперед",
+    "prev": "Назад",
+    "favourite": "Мой список",
+    "rate": "Оценить"
+  },
+  "movieCard": {
+    "rateThis": "Оценить"
+  }
 }

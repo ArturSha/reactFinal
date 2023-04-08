@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getUpcomingMovies } from '../../../redux/reducers/movieList/movieListReducer';
 import { Result } from '../../../redux/reducers/movieList/movieListReducerTypes';
@@ -7,6 +6,7 @@ import { Container } from '../../common/Сontainer';
 import { MovieCard } from '../../movieCard/MovieCard';
 import { useTranslation } from '../../../hooks/useTranslations';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Loader } from '../../common/loader/Loader';
 import './UpcomingMovieList.scss';
 
 export const UpcomingMovieList = () => {
@@ -51,7 +51,7 @@ export const UpcomingMovieList = () => {
       {movies.map((item) => (
         <MovieCard key={item.id} props={item}></MovieCard>
       ))}
-      {isLoading && <CircularProgress className='upcoming-container__loader' />}
+      {isLoading && <Loader />}
       <button
         className='upcoming-container__button'
         onClick={prevPage}
