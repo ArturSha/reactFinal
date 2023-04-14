@@ -27,6 +27,12 @@
       border: none;
       background-color: transparent;
 
+      span {
+        color: white;
+        font-size: 16px;
+        padding-left: 5px;
+      }
+
       &:hover {
         background-color: rgb(59, 59, 59);
       }

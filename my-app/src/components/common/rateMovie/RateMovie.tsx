@@ -4,26 +4,40 @@ import './rateMovie.scss';
 import { useState } from 'react';
 import { SvgStar } from '../svg/SvgStar';
 import { starSize } from './setStarSize';
+import { rateMovie } from '../../../services/moviesApi/rateMovie';
+import { useAppSelector } from '../../../redux/store';
+import { deleteRating } from '../../../services/moviesApi/deleteRating';
 
 interface RatemovieType {
   isModalActive: boolean;
   setIsModalActive: (arg: boolean) => void;
   movieTitle: string;
+  id: number;
+  setRate: (arg: number | null) => void;
+
+  myRate: number | undefined | null;
 }
 
 export const RateMovie = ({
   isModalActive,
   setIsModalActive,
   movieTitle,
+  id,
+  setRate,
+  myRate,
 }: RatemovieType) => {
   const [value, setValue] = useState<number | null>(null);
+  const [isRated, setIsRated] = useState<boolean>(false);
 
   const handleChange = (
     _event: React.ChangeEvent<{}>,
     newValue: number | null
   ) => {
     setValue(newValue);
+    setRate(newValue);
   };
+
+  const { isLogin } = useAppSelector((state) => state.authReducer);
 
   const { t } = useTranslation();
 
@@ -31,6 +45,19 @@ export const RateMovie = ({
     setIsModalActive(!isModalActive);
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
+  };
+  const rateAndClose = () => {
+    rateMovie({ value, id });
+    closeModal();
+    setIsRated(true);
+  };
+
+  const delRating = () => {
+    deleteRating(id);
+    setIsRated(false);
+    setValue(null);
+    setRate(null);
+    closeModal();
   };
 
   return (
@@ -55,7 +82,9 @@ export const RateMovie = ({
         <div className='container-rate-inner__close'>
           <button onClick={closeModal}>&#10006;</button>
         </div>
-        <p className='container-rate-inner__title'>{t.movieCard.rateThis}</p>
+        <p className='container-rate-inner__title -title'>
+          {t.movieCard.rateThis}
+        </p>
         <p className='container-rate-inner__movie'>{movieTitle}</p>
         <Rating
           sx={{ color: '#5799ef', fontSize: '28px' }}
@@ -66,7 +95,28 @@ export const RateMovie = ({
           onChange={handleChange}
         />
         <div className='container-rate-inner-button'>
-          <button type='submit'>{t.buttons.rate}</button>
+          <button
+            className={`container-rate-inner-button__button ${
+              value === null ? 'disabled' : ''
+            } `}
+            disabled={value !== null ? false : true}
+            onClick={() => {
+              isLogin ? rateAndClose() : (window.location.href = '/login');
+            }}
+            type='submit'
+          >
+            {t.buttons.rate}
+          </button>
+          {(isLogin && myRate) || isRated ? (
+            <button
+              className={`container-rate-inner-button__button remove-rating ${
+                !isLogin && 'disabled'
+              } `}
+              onClick={delRating}
+            >
+              {t.buttons.removeRate}
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

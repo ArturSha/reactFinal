@@ -8,15 +8,9 @@ import {
 } from '../../../redux/reducers/movieItem/movieItemReducer';
 import { Loader } from '../../common/loader/Loader';
 import './movieItem.scss';
-
-function getTimeFromMins(mins: number = 0) {
-  let hours = Math.trunc(mins / 60);
-  let minutes = mins % 60;
-  return hours + 'h ' + minutes + 'm';
-}
+import { getTimeFromMins } from './getTimeFromMin';
 
 export const MovieItem = () => {
-  document.cookie = 'cookieName=cookieValue; SameSite=Strict';
   const dispatch = useAppDispatch();
 
   const isLoading = useAppSelector((state) => state.movieReducer.loading);

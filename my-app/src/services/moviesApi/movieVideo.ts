@@ -1,4 +1,4 @@
-import { apiAxios } from '.';
+import { apiAxios } from '..';
 
 export interface GetMovieIVideoType {
   movie_id: string | undefined;
@@ -7,7 +7,7 @@ export interface GetMovieIVideoType {
 
 export const getMovieVideo = async (data: GetMovieIVideoType) => {
   const response = await apiAxios({
-    url: `${data.movie_id}/videos`,
+    url: `movie/${data.movie_id}/videos`,
     params: {
       language: data.language,
     },

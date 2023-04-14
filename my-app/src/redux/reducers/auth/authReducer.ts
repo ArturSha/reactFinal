@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { apiAxiosAuth } from '../../../services/authApi';
-import { InitialStateType } from './authRequestTypes';
+import { authenticate } from '../../../services/authApi';
+import { IncomeArgsType, InitialStateType } from './authRequestTypes';
 
 const languageLocal = localStorage.getItem('language');
 
@@ -9,22 +8,18 @@ const initialState: InitialStateType = {
   loading: false,
   error: null,
   isLogin: false,
-  userLanguage: languageLocal ?? 'en-EN',
+  userLanguage: languageLocal ?? 'en-US',
 };
 
 export const getToken = createAsyncThunk(
   'token/getToken',
-  async (api: string, { rejectWithValue }) => {
+  async (args: IncomeArgsType, { rejectWithValue }) => {
     try {
-      const response = await apiAxiosAuth(
-        `new?api_key=d72e13adb1190ab152f566a4fa9b8${api}`
-      );
+      const auth = await authenticate(args);
 
-      localStorage.setItem('token', response.data.request_token);
-
-      return response.data;
+      return auth.data;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.status_message);
     }
   }
 );
@@ -46,9 +41,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = '';
       })
-      .addCase(getToken.fulfilled, (state) => {
+      .addCase(getToken.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.isLogin = true;
+        localStorage.setItem('sessionId', payload?.session_id);
       })
       .addCase(getToken.rejected, (state, { payload }) => {
         state.loading = false;

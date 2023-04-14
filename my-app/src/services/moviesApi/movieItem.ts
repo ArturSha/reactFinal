@@ -1,4 +1,4 @@
-import { apiAxios } from '.';
+import { apiAxios } from '..';
 
 export interface GetMovieItemType {
   movie_id: string | undefined;
@@ -7,7 +7,7 @@ export interface GetMovieItemType {
 
 export const getMovieItem = async (data: GetMovieItemType) => {
   const response = await apiAxios({
-    url: `${data.movie_id}`,
+    url: `movie/${data.movie_id}`,
     params: {
       language: data.language,
     },

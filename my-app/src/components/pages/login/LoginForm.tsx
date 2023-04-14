@@ -5,9 +5,9 @@ import { getToken } from '../../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { Container } from '../../common/Сontainer';
 import eye from '../../images/eye.png';
+import { useTranslation } from '../../../hooks/useTranslations';
 
 import './loginForm.scss';
-import { useTranslation } from '../../../hooks/useTranslations';
 
 export const LoginForm = () => {
   const { t } = useTranslation();
@@ -21,11 +21,11 @@ export const LoginForm = () => {
     setIsVisible((prev: boolean) => !prev);
   };
   interface onSubmitType {
-    email: string;
+    login: string;
     password: string;
   }
 
-  const initialValues = { email: '', password: '' };
+  const initialValues = { login: '', password: '' };
   const handleSubmit = (data: onSubmitType) => {};
 
   return (
@@ -40,12 +40,12 @@ export const LoginForm = () => {
         {({ values }) => (
           <Form className='form-container__form'>
             <div className='label-container'>
-              <label htmlFor='email'>{t.loginPage.email}</label>
+              <label htmlFor='login'>{t.loginPage.login}</label>
               <Field
                 className='form-container__field'
-                id='email'
-                name='email'
-                placeholder='E-mail'
+                id='login'
+                name='login'
+                placeholder='Login'
               />
             </div>
 
@@ -77,8 +77,13 @@ export const LoginForm = () => {
             </div>
 
             <button
-              onClick={() => {
-                dispatch(getToken(values.password));
+              onClick={async () => {
+                await dispatch(
+                  getToken({
+                    username: values.login,
+                    password: values.password,
+                  })
+                );
               }}
               className='form-container__button'
               type='submit'

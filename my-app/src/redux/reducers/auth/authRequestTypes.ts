@@ -4,3 +4,8 @@ export type InitialStateType = {
   isLogin: boolean;
   userLanguage: string;
 };
+
+export interface IncomeArgsType {
+  username: string;
+  password: string;
+}

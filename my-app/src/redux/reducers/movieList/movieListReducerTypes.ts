@@ -26,6 +26,7 @@ export interface Result {
   vote_count: number;
   video: boolean;
   vote_average: number;
+  rating: number | undefined;
 }
 
 export interface Dates {

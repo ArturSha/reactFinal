@@ -8,7 +8,7 @@
   },
   "loginPage": {
     "header": "Login",
-    "email": "Email",
+    "login": "Login",
     "password": "Password",
     "submit": "Login"
   },
@@ -16,7 +16,8 @@
     "next": "Next",
     "prev": "Previous",
     "favourite": "Watchlist",
-    "rate": "Rate"
+    "rate": "Rate",
+    "removeRate": "Remove rating"
   },
   "movieCard": {
     "rateThis": "Rate this"

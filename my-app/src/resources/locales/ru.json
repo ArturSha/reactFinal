@@ -8,7 +8,7 @@
   },
   "loginPage": {
     "header": "Войти",
-    "email": "Email",
+    "login": "Логин",
     "password": "Пароль",
     "submit": "Войти"
   },
@@ -16,7 +16,8 @@
     "next": "Вперед",
     "prev": "Назад",
     "favourite": "Мой список",
-    "rate": "Оценить"
+    "rate": "Оценить",
+    "removeRate": "Удалить рейтинг"
   },
   "movieCard": {
     "rateThis": "Оценить"

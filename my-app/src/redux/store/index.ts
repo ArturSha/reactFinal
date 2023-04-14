@@ -1,3 +1,4 @@
+import { accountReducer } from './../reducers/account/accountReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import { authReducer } from '../reducers/auth/authReducer';
@@ -5,7 +6,7 @@ import { movieListReducer } from '../reducers/movieList/movieListReducer';
 import { movieReducer } from '../reducers/movieItem/movieItemReducer';
 
 export const store = configureStore({
-  reducer: { movieListReducer, authReducer, movieReducer },
+  reducer: { movieListReducer, authReducer, movieReducer, accountReducer },
 });
 
 export type AppDispatchType = typeof store.dispatch;

@@ -1,7 +1,3 @@
-// export interface Root {
-//   results: Result;
-// }
-
 export interface Root {
   adult: boolean;
   backdrop_path: string;

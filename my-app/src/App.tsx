@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { LoginForm } from './components/pages/login/LoginForm';
@@ -23,11 +22,7 @@ function App() {
           <Route
             path='/login'
             element={
-              !isLogin ? (
-                <LoginForm />
-              ) : (
-                <Navigate to={'/upComing/1'} replace></Navigate>
-              )
+              !isLogin ? <LoginForm /> : <Navigate to={'/upComing/1'} replace />
             }
           ></Route>
           <Route path='movie/:id' element={<MovieItem />}></Route>

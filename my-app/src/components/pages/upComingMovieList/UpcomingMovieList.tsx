@@ -7,6 +7,8 @@ import { MovieCard } from '../../movieCard/MovieCard';
 import { useTranslation } from '../../../hooks/useTranslations';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Loader } from '../../common/loader/Loader';
+import { ratedMovies } from '../../../redux/reducers/account/accountReducer';
+import { replaceObjects } from './replaceObj';
 import './UpcomingMovieList.scss';
 
 export const UpcomingMovieList = () => {
@@ -16,13 +18,16 @@ export const UpcomingMovieList = () => {
 
   const language = useAppSelector((state) => state.authReducer.userLanguage);
 
-  const { t } = useTranslation();
-
-  const navigate = useNavigate();
+  const rated = useAppSelector((state) => state.accountReducer.ratedMovies);
 
   const movies: Array<Result> = useAppSelector(
     (state) => state.movieListReducer.movieList
   );
+  const { t } = useTranslation();
+
+  const navigate = useNavigate();
+
+  const filteredMovies = replaceObjects(movies, rated, 'id');
 
   const dispatch = useAppDispatch();
 
@@ -44,11 +49,12 @@ export const UpcomingMovieList = () => {
   useEffect(() => {
     dispatch(getUpcomingMovies(data));
     setPage(Number(p));
+    dispatch(ratedMovies());
   }, [p, language]);
 
   return (
     <Container className='upcoming-container'>
-      {movies.map((item) => (
+      {filteredMovies.map((item) => (
         <MovieCard key={item.id} props={item}></MovieCard>
       ))}
       {isLoading && <Loader />}
