@@ -21,10 +21,17 @@ export interface Result {
   vote_average: number;
   vote_count: number;
   rating: number | undefined;
+  watchlist?: boolean;
 }
 
 export interface InitialStateTypes {
   ratedMovies: Result[] | [];
+  watchList: Result[] | [];
   loading: boolean;
   error: null | string | unknown;
+}
+export interface WatchListResponseType {
+  success: boolean;
+  status_code: number;
+  status_message: string;
 }

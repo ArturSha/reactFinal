@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { userLanguage } from '../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { Container } from '../common/Сontainer';
@@ -14,6 +14,7 @@ export const Header = () => {
   const [language, setLanguage] = useState<string>(
     userLanguageLocal ? userLanguageLocal : 'en-EN'
   );
+  const { pathname } = useLocation();
 
   localStorage.setItem('language', language);
 
@@ -26,14 +27,22 @@ export const Header = () => {
     <header className='header'>
       <Container className='header-container'>
         <NavLink
-          className={({ isActive }) => (isActive ? 'active-link' : 'link')}
+          className={({ isActive }) =>
+            isActive || pathname.startsWith('/upComing')
+              ? 'active-link'
+              : 'link'
+          }
           to={`upComing/1`}
         >
           {t.header.links.movies}
         </NavLink>
         <NavLink
-          className={({ isActive }) => (isActive ? 'active-link' : 'link')}
-          to='/favourite'
+          className={({ isActive }) =>
+            isActive || pathname.startsWith('/watchlist')
+              ? 'active-link'
+              : 'link'
+          }
+          to='/watchlist/1'
         >
           {t.header.links.watchlist}
         </NavLink>

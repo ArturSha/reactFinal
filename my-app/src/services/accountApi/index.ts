@@ -1,4 +1,3 @@
-import React from 'react';
 import { apiAxios } from '..';
 
 export const getRatedMovies = async () => {

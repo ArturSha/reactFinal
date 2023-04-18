@@ -5,5 +5,6 @@ export interface MovieCardType {
     vote_average: number;
     id: number;
     rating?: number | null;
+    watchlist?: boolean;
   };
 }

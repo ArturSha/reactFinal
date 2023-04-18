@@ -4,6 +4,7 @@ import { LoginForm } from './components/pages/login/LoginForm';
 import { UpcomingMovieList } from './components/pages/upComingMovieList/UpcomingMovieList';
 import { useAppSelector } from './redux/store';
 import { MovieItem } from './components/pages/movieItem/MovieItem';
+import { WatchList } from './components/pages/watchList/WatchList';
 
 function App() {
   const isLogin = useAppSelector((state) => state.authReducer.isLogin);
@@ -19,6 +20,11 @@ function App() {
             element={<Navigate to={'/upComing/1'}></Navigate>}
           ></Route>
           <Route path='/upComing/:p' element={<UpcomingMovieList />}></Route>
+          <Route
+            path='/watchlist/:p'
+            element={isLogin ? <WatchList /> : <Navigate to={'/login'} />}
+          ></Route>
+
           <Route
             path='/login'
             element={

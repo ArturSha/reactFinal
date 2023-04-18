@@ -77,8 +77,8 @@ export const LoginForm = () => {
             </div>
 
             <button
-              onClick={async () => {
-                await dispatch(
+              onClick={() => {
+                dispatch(
                   getToken({
                     username: values.login,
                     password: values.password,

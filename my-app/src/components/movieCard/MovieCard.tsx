@@ -8,13 +8,18 @@ import { SvgStar } from '../common/svg/SvgStar';
 import { SvgStarRate } from '../common/svg/SvgStarRate';
 import poster from '../images/dark404.jpg';
 import { useAppSelector } from '../../redux/store';
+import { addToMyWatchList } from '../../redux/reducers/account/accountReducer';
+import { useAppDispatch } from '../../redux/store';
+import { IncomeData } from '../../services/accountApi/watchList';
 import './movieCard.scss';
 
 export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
   const { t } = useTranslation();
   const [rate, setRate] = useState<number | null | undefined>(null);
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [isWatched, setIsWatched] = useState<boolean | undefined>(false);
   const { isLogin } = useAppSelector((state) => state.authReducer);
+  const dispatch = useAppDispatch();
 
   const toggleRate = () => {
     setIsModalActive(!isModalActive);
@@ -24,20 +29,30 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
   };
   useEffect(() => {
     setRate(props?.rating);
+    setIsWatched(props.watchlist);
   }, []);
+
+  const addToWatchList = (data: IncomeData) => {
+    dispatch(addToMyWatchList(data));
+    setIsWatched((isWatched) => !isWatched);
+  };
+  const argAdd = { id: props.id, add: true };
+  const argDel = { id: props.id, add: false };
 
   return (
     <Container className='card-container'>
       <div>
-        <img
-          className='card-container__image'
-          src={
-            props.poster_path
-              ? `https://image.tmdb.org/t/p/w200${props?.poster_path}`
-              : poster
-          }
-          alt='was not found'
-        />
+        <Link to={`/movie/${props?.id}`}>
+          <img
+            className='card-container__image'
+            src={
+              props.poster_path
+                ? `https://image.tmdb.org/t/p/w200${props?.poster_path}`
+                : poster
+            }
+            alt='was not found'
+          />
+        </Link>
       </div>
       <div className='card-container-description'>
         <p>
@@ -68,8 +83,18 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
       </div>
 
       <div className='card-container-watchlist'>
-        <button className='card-container-watchlist__button'>
-          + {t.buttons.favourite}
+        <button
+          onClick={() =>
+            !isLogin
+              ? (window.location.href = '/login')
+              : !isWatched
+              ? addToWatchList(argAdd)
+              : addToWatchList(argDel)
+          }
+          className='card-container-watchlist__button'
+        >
+          {isWatched ? '- ' : '+ '}
+          {t.buttons.favourite}
         </button>
       </div>
     </Container>
