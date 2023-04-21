@@ -9,6 +9,7 @@ export const UpcomingMovieList = () => {
   const movies: Array<Result> = useAppSelector(
     (state) => state.movieListReducer.movieList
   );
+
   return (
     <div>
       <MoviesList

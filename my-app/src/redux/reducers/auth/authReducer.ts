@@ -3,12 +3,16 @@ import { authenticate } from '../../../services/authApi';
 import { IncomeArgsType, InitialStateType } from './authRequestTypes';
 
 const languageLocal = localStorage.getItem('language');
+const lang =
+  languageLocal === 'en-US' || languageLocal === 'ru-RU'
+    ? languageLocal
+    : 'en-US';
 
 const initialState: InitialStateType = {
   loading: false,
   error: null,
   isLogin: false,
-  userLanguage: languageLocal ?? 'en-US',
+  userLanguage: lang,
 };
 
 export const getToken = createAsyncThunk(

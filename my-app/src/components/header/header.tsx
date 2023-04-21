@@ -4,6 +4,7 @@ import { userLanguage } from '../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { Container } from '../common/Сontainer';
 import { useTranslation } from '../../hooks/useTranslations';
+import { Search } from '../search/Search';
 import './header.scss';
 
 export const Header = () => {
@@ -12,15 +13,15 @@ export const Header = () => {
   const dispatch = useAppDispatch();
   const userLanguageLocal = localStorage.getItem('language');
   const [language, setLanguage] = useState<string>(
-    userLanguageLocal ? userLanguageLocal : 'en-EN'
+    userLanguageLocal === 'ru-RU' ? userLanguageLocal : 'en-US'
   );
-  const { pathname } = useLocation();
-
   localStorage.setItem('language', language);
+
+  const { pathname } = useLocation();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(event.target.value);
-    dispatch(userLanguage(language === 'en-EN' ? 'ru-RU' : 'en-EN'));
+    dispatch(userLanguage(language === 'en-US' ? 'ru-RU' : 'en-US'));
   };
 
   return (
@@ -36,6 +37,7 @@ export const Header = () => {
         >
           {t.header.links.movies}
         </NavLink>
+        <Search />
         <NavLink
           className={({ isActive }) =>
             isActive || pathname.startsWith('/watchlist')
@@ -62,7 +64,7 @@ export const Header = () => {
             value={language}
             onChange={handleChange}
           >
-            <option value='en-EN'>EN</option>
+            <option value='en-US'>EN</option>
             <option value='ru-RU'>РУ</option>
           </select>
         </Container>

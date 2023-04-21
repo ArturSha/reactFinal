@@ -24,11 +24,12 @@ export const MovieItem = () => {
   const { id } = useParams();
 
   const data = { language, movie_id: id };
+  const params = useParams();
 
   useEffect(() => {
     dispatch(getMovieById(data));
     dispatch(getVideoById(data));
-  }, [language]);
+  }, [language, params]);
 
   const genres = movieItem?.genres.map((item) => {
     return <span key={item.id}>{item.name} </span>;

@@ -12,7 +12,7 @@ import {
 } from '../../../redux/reducers/account/accountReducer';
 import { replaceObjects } from './replaceObj';
 import './movieList.scss';
-import { getFilteredMovies } from './isWatchlist';
+import { getFilteredMovies } from './isInWatchlist';
 
 interface MovieListTypes {
   loading: boolean;

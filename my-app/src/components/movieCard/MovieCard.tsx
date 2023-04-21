@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { RateMovie } from '../common/rateMovie/RateMovie';
 import { SvgStar } from '../common/svg/SvgStar';
 import { SvgStarRate } from '../common/svg/SvgStarRate';
-import poster from '../images/dark404.jpg';
+import poster from '../images/comingSoon.jpg';
 import { useAppSelector } from '../../redux/store';
 import { addToMyWatchList } from '../../redux/reducers/account/accountReducer';
 import { useAppDispatch } from '../../redux/store';

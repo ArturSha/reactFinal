@@ -1,15 +1,18 @@
-import ru from '../resources/locales/ru.json'
-import en from '../resources/locales/en.json'
-import {  useAppSelector } from '../redux/store'
+import ru from '../resources/locales/ru.json';
+import en from '../resources/locales/en.json';
+import { useAppSelector } from '../redux/store';
 
 type LanguageType = string;
-const translation:{[name in LanguageType]: typeof ru & typeof en} = {'ru-RU': ru,'en-EN':en}
 
+const translation: { [name in LanguageType]: typeof ru & typeof en } = {
+  'ru-RU': ru,
+  'en-US': en,
+};
 
 export const useTranslation = () => {
-const language = useAppSelector(state => state.authReducer.userLanguage )
+  let language = useAppSelector((state) => state.authReducer.userLanguage);
 
-return {
-    t:translation[language]
-}
-}
+  return {
+    t: translation[language],
+  };
+};
