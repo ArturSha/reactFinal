@@ -37,8 +37,6 @@ export const MoviesList: React.FC<MovieListTypes> = (props) => {
   const navigate = useNavigate();
 
   const ratedList = replaceObjects(props.movies, rated, 'id');
-  console.log('rated', rated);
-  console.log('watchlist', watchlist);
 
   const filteredMovies = getFilteredMovies(ratedList, watchlist, 'id');
 
