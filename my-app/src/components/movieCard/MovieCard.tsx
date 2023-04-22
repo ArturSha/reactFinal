@@ -30,7 +30,6 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
   useEffect(() => {
     setRate(props?.rating);
     setIsWatched(props.watchlist);
-    console.log('test', props.rating);
   }, []);
 
   const addToWatchList = (data: IncomeData) => {
