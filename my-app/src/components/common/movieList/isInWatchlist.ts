@@ -5,19 +5,19 @@ export const getFilteredMovies = (
   secondArray: Result[],
   key: keyof Result
 ) => {
-  const result = [...firstArray];
-
-  secondArray.forEach((secondItem) => {
-    const index = result.findIndex(
-      (firstItem) => firstItem[key] === secondItem[key]
+  const result = firstArray.map((item) => {
+    const index = secondArray.findIndex(
+      (secondItem) => secondItem[key] === item[key]
     );
 
     if (index !== -1) {
-      result[index] = {
-        ...result[index],
+      return {
+        ...item,
         watchlist: true,
       };
     }
+
+    return item;
   });
 
   return result;

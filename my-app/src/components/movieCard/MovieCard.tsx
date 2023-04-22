@@ -60,7 +60,7 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
             <SvgStar fill='#c5ae17' height={'16px'} width={'16px'} />
           </span>
 
-          {props?.vote_average}
+          {props?.vote_average.toString().slice(0, 3)}
           <button
             onClick={toggleRate}
             className='card-container-description__rate'
