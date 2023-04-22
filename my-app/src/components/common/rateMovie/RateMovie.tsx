@@ -13,7 +13,7 @@ interface RatemovieType {
   setIsModalActive: (arg: boolean) => void;
   movieTitle: string;
   id: number;
-  setRate: (arg: number | null) => void;
+  setRate: (arg: number | null | undefined) => void;
 
   myRate: number | undefined | null;
 }
@@ -34,22 +34,28 @@ export const RateMovie = ({
     newValue: number | null
   ) => {
     setValue(newValue);
-    setRate(newValue);
   };
 
   const { isLogin } = useAppSelector((state) => state.authReducer);
 
   const { t } = useTranslation();
 
-  const closeModal = () => {
+  const hideModal = () => {
     setIsModalActive(!isModalActive);
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
   };
-  const rateAndClose = () => {
+
+  const closeModal = () => {
+    hideModal();
+    if (!myRate && !value) setRate(myRate);
+  };
+  const rateAndClose = (newValue: number | null) => {
     rateMovie({ value, id });
-    closeModal();
     setIsRated(true);
+    setRate(newValue);
+    setValue(newValue);
+    hideModal();
   };
 
   const delRating = () => {
@@ -57,7 +63,7 @@ export const RateMovie = ({
     setIsRated(false);
     setValue(null);
     setRate(null);
-    closeModal();
+    hideModal();
   };
 
   return (
@@ -101,7 +107,7 @@ export const RateMovie = ({
             } `}
             disabled={value !== null ? false : true}
             onClick={() => {
-              isLogin ? rateAndClose() : (window.location.href = '/login');
+              isLogin ? rateAndClose(value) : (window.location.href = '/login');
             }}
             type='submit'
           >
