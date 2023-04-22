@@ -78,7 +78,9 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
           myRate={props?.rating}
         ></RateMovie>
         <Link to={`/movie/${props?.id}`}>
-          <p>{props?.title}</p>
+          <p className='card-container-description__description'>
+            {props?.title}
+          </p>
         </Link>
       </div>
 
