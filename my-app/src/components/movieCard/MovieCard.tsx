@@ -8,7 +8,10 @@ import { SvgStar } from '../common/svg/SvgStar';
 import { SvgStarRate } from '../common/svg/SvgStarRate';
 import poster from '../images/comingSoon.jpg';
 import { useAppSelector } from '../../redux/store';
-import { addToMyWatchList } from '../../redux/reducers/account/accountReducer';
+import {
+  addToMyWatchList,
+  removeFromWatchList,
+} from '../../redux/reducers/account/accountReducer';
 import { useAppDispatch } from '../../redux/store';
 import { IncomeData } from '../../services/accountApi/watchList';
 import './movieCard.scss';
@@ -34,6 +37,12 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
 
   const addToWatchList = (data: IncomeData) => {
     dispatch(addToMyWatchList(data));
+    setIsWatched((isWatched) => !isWatched);
+  };
+
+  const delFromWatchList = (data: IncomeData) => {
+    dispatch(addToMyWatchList(data));
+    dispatch(removeFromWatchList(data));
     setIsWatched((isWatched) => !isWatched);
   };
   const argAdd = { id: props.id, add: true };
@@ -91,11 +100,11 @@ export const MovieCard: React.FC<MovieCardType> = ({ props }) => {
               ? (window.location.href = '/login')
               : !isWatched
               ? addToWatchList(argAdd)
-              : addToWatchList(argDel)
+              : delFromWatchList(argDel)
           }
           className='card-container-watchlist__button'
         >
-          {isWatched ? '- ' : '+ '}
+          {isLogin && isWatched ? '- ' : '+ '}
           {t.buttons.favourite}
         </button>
       </div>

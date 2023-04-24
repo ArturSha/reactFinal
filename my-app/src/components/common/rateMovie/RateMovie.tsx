@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { SvgStar } from '../svg/SvgStar';
 import { starSize } from './setStarSize';
 import { rateMovie } from '../../../services/moviesApi/rateMovie';
-import { useAppSelector } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { deleteRating } from '../../../services/moviesApi/deleteRating';
+import { changeRate } from '../../../redux/reducers/account/accountReducer';
 
 interface RatemovieType {
   isModalActive: boolean;
@@ -14,7 +15,6 @@ interface RatemovieType {
   movieTitle: string;
   id: number;
   setRate: (arg: number | null | undefined) => void;
-
   myRate: number | undefined | null;
 }
 
@@ -28,6 +28,7 @@ export const RateMovie = ({
 }: RatemovieType) => {
   const [value, setValue] = useState<number | null>(null);
   const [isRated, setIsRated] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const handleChange = (
     _event: React.ChangeEvent<{}>,
@@ -50,12 +51,14 @@ export const RateMovie = ({
     hideModal();
     if (!myRate && !value) setRate(myRate);
   };
+
   const rateAndClose = (newValue: number | null) => {
     rateMovie({ value, id });
     setIsRated(true);
     setRate(newValue);
     setValue(newValue);
     hideModal();
+    dispatch(changeRate({ id, newValue }));
   };
 
   const delRating = () => {
@@ -64,6 +67,7 @@ export const RateMovie = ({
     setValue(null);
     setRate(null);
     hideModal();
+    dispatch(changeRate({ id, newValue: null }));
   };
 
   return (

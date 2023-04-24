@@ -22,15 +22,15 @@ interface MovieListTypes {
 }
 
 export const MoviesList: React.FC<MovieListTypes> = (props) => {
-  const { p } = useParams<{ p: string }>();
-
-  const isLoading = props.loading;
-
   const language = useAppSelector((state) => state.authReducer.userLanguage);
 
   const rated = useAppSelector((state) => state.accountReducer.ratedMovies);
 
   const watchlist = useAppSelector((state) => state.accountReducer.watchList);
+
+  const isLoading = props.loading;
+
+  const { p } = useParams<{ p: string }>();
 
   const { t } = useTranslation();
 
@@ -58,10 +58,16 @@ export const MoviesList: React.FC<MovieListTypes> = (props) => {
   };
 
   useEffect(() => {
+    const dispatchMyWatchList = () => {
+      if (props.link !== 'watchlist') {
+        dispatch(myWatchList());
+      }
+    };
+    dispatchMyWatchList();
+
     dispatch(props.query(data));
     setPage(Number(p));
     dispatch(ratedMovies());
-    dispatch(myWatchList());
   }, [p, language]);
 
   return (

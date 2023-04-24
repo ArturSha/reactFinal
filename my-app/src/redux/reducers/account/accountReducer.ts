@@ -63,7 +63,20 @@ export const addToMyWatchList = createAsyncThunk<
 const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {},
+  reducers: {
+    removeFromWatchList: (state, action) => {
+      state.watchList = state.watchList.filter(
+        (item) => item.id !== action.payload.id
+      );
+    },
+    changeRate: (state, action) => {
+      const { id, newValue } = action.payload;
+      const index = state.ratedMovies.findIndex((movie) => movie.id === id);
+      if (index !== -1) {
+        state.ratedMovies[index].rating = newValue;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(ratedMovies.pending, (state) => {
@@ -104,4 +117,5 @@ const accountSlice = createSlice({
   },
 });
 
+export const { removeFromWatchList, changeRate } = accountSlice.actions;
 export const accountReducer = accountSlice.reducer;

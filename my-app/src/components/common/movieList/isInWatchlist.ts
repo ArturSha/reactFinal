@@ -19,6 +19,5 @@ export const getFilteredMovies = (
 
     return item;
   });
-
   return result;
 };
