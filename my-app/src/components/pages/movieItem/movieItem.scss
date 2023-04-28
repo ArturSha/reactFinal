@@ -58,3 +58,10 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .movie-container-inner-media {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

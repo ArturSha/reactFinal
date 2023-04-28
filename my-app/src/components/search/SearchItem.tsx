@@ -36,7 +36,7 @@ export const SearchItem: React.FC<Result> = ({
       </div>
       <div className='container-search-card-description'>
         <Link to={`/movie/${id}`}>
-          <p>{title}</p>
+          <p className='container-search-card-description__title'>{title}</p>
         </Link>
         <p className='container-search-card-description__release'>
           {changeReleaseDateFormat(release_date)}

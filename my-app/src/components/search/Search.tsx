@@ -54,7 +54,7 @@ export const Search = () => {
   }, []);
 
   return (
-    <div ref={searchRef}>
+    <div className='header-container-search' ref={searchRef}>
       <input
         type='search'
         placeholder='Search'

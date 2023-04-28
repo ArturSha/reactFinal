@@ -6,15 +6,27 @@ import { Container } from '../common/Сontainer';
 import { useTranslation } from '../../hooks/useTranslations';
 import { Search } from '../search/Search';
 import './header.scss';
+import { Menu } from '../common/menu/Menu';
 
 export const Header = () => {
   const { t } = useTranslation();
+
   const isLogin = useAppSelector((state) => state.authReducer.isLogin);
+
   const dispatch = useAppDispatch();
+
   const userLanguageLocal = localStorage.getItem('language');
+
   const [language, setLanguage] = useState<string>(
     userLanguageLocal === 'ru-RU' ? userLanguageLocal : 'en-US'
   );
+
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   localStorage.setItem('language', language);
 
   const { pathname } = useLocation();
@@ -26,6 +38,17 @@ export const Header = () => {
 
   return (
     <header className='header'>
+      <button
+        className={`header-menu__button ${isMenuOpen ? 'open' : ''}`}
+        onClick={toggleMenu}
+      >
+        <span />
+      </button>
+      <Menu
+        className={isMenuOpen ? 'active' : ''}
+        setIsMenuOpen={setIsMenuOpen}
+      />
+
       <Container className='header-container'>
         <NavLink
           className={({ isActive }) =>
