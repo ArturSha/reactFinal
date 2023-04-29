@@ -11,7 +11,7 @@ export interface Root {
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: any;
+  poster_path?: string;
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
   release_date: string;

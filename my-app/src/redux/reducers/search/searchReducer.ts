@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { InitialStateType, Root } from './searchReducerTypes';
 import { searchMovies } from '../../../services/searchApi/search';
+import { AxiosError } from 'axios';
 
 const initialState: InitialStateType = {
   searchList: [],
@@ -12,12 +13,15 @@ export const getSearchingMovies = createAsyncThunk<
   Root,
   string,
   { rejectValue: string }
->('search/movies', async (data, { rejectWithValue }) => {
+>('search/movies', async (data, thunksApi) => {
   try {
     const response = searchMovies(data);
     return response;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 

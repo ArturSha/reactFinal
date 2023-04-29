@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiAxios } from '../../../services';
 import { IncomingData, InitialStateType, Root } from './movieListReducerTypes';
+import { AxiosError } from 'axios';
 
 const initialState: InitialStateType = {
   movieList: [],
@@ -12,7 +13,7 @@ export const getUpcomingMovies = createAsyncThunk<
   Root,
   IncomingData,
   { rejectValue: string }
->('movies/upcoming', async (data, { rejectWithValue }) => {
+>('movies/upcoming', async (data, thunksApi) => {
   try {
     const response = await apiAxios({
       url: 'movie/upcoming',
@@ -23,8 +24,11 @@ export const getUpcomingMovies = createAsyncThunk<
     });
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response?.data?.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 

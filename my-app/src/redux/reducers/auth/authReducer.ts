@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authenticate } from '../../../services/authApi';
 import { IncomeArgsType, InitialStateType } from './authRequestTypes';
+import { AxiosError } from 'axios';
 
 const languageLocal = localStorage.getItem('language');
 const lang =
@@ -17,13 +18,16 @@ const initialState: InitialStateType = {
 
 export const getToken = createAsyncThunk(
   'token/getToken',
-  async (args: IncomeArgsType, { rejectWithValue }) => {
+  async (args: IncomeArgsType, thunksApi) => {
     try {
       const auth = await authenticate(args);
 
       return auth.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data.status_message);
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.data?.status_message) {
+        return thunksApi.rejectWithValue(error.response.data.status_message);
+      }
+      return thunksApi.rejectWithValue('Login error');
     }
   }
 );

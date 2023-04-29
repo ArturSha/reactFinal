@@ -7,14 +7,14 @@ export interface Root {
 
 export interface Result {
   adult: boolean;
-  backdrop_path?: any;
+  backdrop_path?: string;
   genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
   overview: string;
   release_date: string;
-  poster_path?: any;
+  poster_path?: string;
   popularity: number;
   title: string;
   video: boolean;

@@ -5,6 +5,7 @@ import {
   getMovieItem,
 } from '../../../services/moviesApi/movieItem';
 import { getMovieVideo } from '../../../services/moviesApi/movieVideo';
+import { AxiosError } from 'axios';
 
 const initialState: InitialStateType = {
   movie: null,
@@ -17,13 +18,16 @@ export const getMovieById = createAsyncThunk<
   Root,
   GetMovieItemType,
   { rejectValue: string }
->('movie/getById', async (data, { rejectWithValue }) => {
+>('movie/getById', async (data, thunksApi) => {
   try {
     const response = await getMovieItem(data);
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 
@@ -31,13 +35,16 @@ export const getVideoById = createAsyncThunk<
   VideoRoot,
   GetMovieItemType,
   { rejectValue: string }
->('movie/getVideoById', async (data, { rejectWithValue }) => {
+>('movie/getVideoById', async (data, thunksApi) => {
   try {
     const response = await getMovieVideo(data);
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 

@@ -1,5 +1,5 @@
 export type InitialStateType = {
-  movieList: Array<Result> | undefined | any;
+  movieList: Array<Result>;
   error: null | string | unknown;
   loading: boolean;
 };

@@ -10,6 +10,7 @@ import {
   addToWatchlist,
   getWatchList,
 } from '../../../services/accountApi/watchList';
+import { AxiosError } from 'axios';
 
 const initialState: InitialStateTypes = {
   ratedMovies: [],
@@ -22,13 +23,16 @@ export const ratedMovies = createAsyncThunk<
   Root,
   void,
   { rejectValue: string }
->('account/rated', async (_, { rejectWithValue }) => {
+>('account/rated', async (_, thunksApi) => {
   try {
     const response = await getRatedMovies();
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 
@@ -36,13 +40,16 @@ export const myWatchList = createAsyncThunk<
   Root,
   void,
   { rejectValue: string }
->('account/watchList', async (_, { rejectWithValue }) => {
+>('account/watchList', async (_, thunksApi) => {
   try {
     const response = await getWatchList();
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Watchlist error');
   }
 });
 
@@ -50,13 +57,16 @@ export const addToMyWatchList = createAsyncThunk<
   WatchListResponseType,
   IncomeData,
   { rejectValue: string }
->('account/addToWatchlist', async (data, { rejectWithValue }) => {
+>('account/addToWatchlist', async (data, thunksApi) => {
   try {
     const response = await addToWatchlist(data);
 
     return response.data;
-  } catch (e: any) {
-    return rejectWithValue(e.message);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.status_message) {
+      return thunksApi.rejectWithValue(error.response.data.status_message);
+    }
+    return thunksApi.rejectWithValue('Server error');
   }
 });
 
