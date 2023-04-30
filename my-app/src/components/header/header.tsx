@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { userLanguage } from '../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { Container } from '../common/Сontainer';
+import { Container } from '../common/container/Сontainer';
 import { useTranslation } from '../../hooks/useTranslations';
 import { Search } from '../search/Search';
 import './header.scss';

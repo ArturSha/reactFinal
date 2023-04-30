@@ -7,6 +7,7 @@ import {
 import { getRatedMovies } from '../../../services/accountApi';
 import {
   IncomeData,
+  WatchListParams,
   addToWatchlist,
   getWatchList,
 } from '../../../services/accountApi/watchList';
@@ -38,11 +39,11 @@ export const ratedMovies = createAsyncThunk<
 
 export const myWatchList = createAsyncThunk<
   Root,
-  void,
+  WatchListParams,
   { rejectValue: string }
->('account/watchList', async (_, thunksApi) => {
+>('account/watchList', async (data, thunksApi) => {
   try {
-    const response = await getWatchList();
+    const response = await getWatchList(data);
 
     return response.data;
   } catch (error) {

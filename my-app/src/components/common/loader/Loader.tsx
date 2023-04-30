@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { Container } from '../Сontainer';
+import { Container } from '../container/Сontainer';
 import './loader.scss';
 
 export const Loader = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Result } from '../../../redux/reducers/account/accountReducerTypes';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { Container } from '../Сontainer';
+import { Container } from '../container/Сontainer';
 import { MovieCard } from '../../movieCard/MovieCard';
 import { useTranslation } from '../../../hooks/useTranslations';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -60,7 +60,7 @@ export const MoviesList: React.FC<MovieListTypes> = (props) => {
   useEffect(() => {
     const dispatchMyWatchList = () => {
       if (props.link !== 'watchlist') {
-        dispatch(myWatchList());
+        dispatch(myWatchList(data));
       }
     };
     dispatchMyWatchList();

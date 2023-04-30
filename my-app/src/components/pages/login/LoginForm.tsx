@@ -3,7 +3,7 @@ import { Field, Formik, Form } from 'formik';
 import { useState } from 'react';
 import { getToken } from '../../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { Container } from '../../common/Сontainer';
+import { Container } from '../../common/container/Сontainer';
 import eye from '../../images/eye.png';
 import { useTranslation } from '../../../hooks/useTranslations';
 

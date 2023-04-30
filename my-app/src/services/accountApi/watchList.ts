@@ -4,11 +4,15 @@ export interface IncomeData {
   id: number;
   add: boolean;
 }
+export interface WatchListParams {
+  page: string | undefined;
+}
 
-export const getWatchList = async () => {
+export const getWatchList = async (page: WatchListParams) => {
   const response = await apiAxios('account/{account_id}/watchlist/movies', {
     params: {
       language: localStorage.getItem('language'),
+      page: page.page,
     },
   });
   return response;

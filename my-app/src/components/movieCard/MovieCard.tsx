@@ -1,4 +1,4 @@
-import { Container } from '../common/Сontainer';
+import { Container } from '../common/container/Сontainer';
 import { MovieCardType } from './movieCardTypes';
 import { useTranslation } from '../../hooks/useTranslations';
 import { Link } from 'react-router-dom';
