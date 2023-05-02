@@ -36,11 +36,14 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    error: (state) => {
+    logout: (state) => {
       state.isLogin = false;
     },
     userLanguage: (state, action) => {
       state.userLanguage = action.payload;
+    },
+    login: (state) => {
+      state.isLogin = true;
     },
   },
   extraReducers: (builder) => {
@@ -63,4 +66,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
-export const { userLanguage } = authSlice.actions;
+export const { userLanguage, login, logout } = authSlice.actions;

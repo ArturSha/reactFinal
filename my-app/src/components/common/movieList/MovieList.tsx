@@ -28,6 +28,8 @@ export const MoviesList: React.FC<MovieListTypes> = (props) => {
 
   const watchlist = useAppSelector((state) => state.accountReducer.watchList);
 
+  const isLogin = useAppSelector((state) => state.authReducer.isLogin);
+
   const isLoading = props.loading;
 
   const { p } = useParams<{ p: string }>();
@@ -63,11 +65,13 @@ export const MoviesList: React.FC<MovieListTypes> = (props) => {
         dispatch(myWatchList(data));
       }
     };
-    dispatchMyWatchList();
+    if (isLogin) {
+      dispatch(ratedMovies());
+      dispatchMyWatchList();
+    }
 
     dispatch(props.query(data));
     setPage(Number(p));
-    dispatch(ratedMovies());
   }, [p, language]);
 
   return (

@@ -8,6 +8,6 @@ export const apiAxios = axios.create({
   params: {
     language: localStorage.getItem('language'),
     api_key: API_KEY,
-    session_id: localStorage.getItem('sessionId') ?? null,
+    session_id: localStorage.getItem('sessionId'),
   },
 });

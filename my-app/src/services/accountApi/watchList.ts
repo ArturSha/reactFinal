@@ -13,6 +13,7 @@ export const getWatchList = async (page: WatchListParams) => {
     params: {
       language: localStorage.getItem('language'),
       page: page.page,
+      session_id: localStorage.getItem('sessionId'),
     },
   });
   return response;

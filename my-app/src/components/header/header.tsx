@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { userLanguage } from '../../redux/reducers/auth/authReducer';
+import { logout, userLanguage } from '../../redux/reducers/auth/authReducer';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { Container } from '../common/container/Сontainer';
 import { useTranslation } from '../../hooks/useTranslations';
 import { Search } from '../search/Search';
-import './header.scss';
 import { Menu } from '../common/menu/Menu';
+import './header.scss';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -35,6 +35,11 @@ export const Header = () => {
     setLanguage(event.target.value);
     dispatch(userLanguage(language === 'en-US' ? 'ru-RU' : 'en-US'));
   };
+  const logOutFromApp = () => {
+    dispatch(logout());
+    localStorage.removeItem('expires');
+    localStorage.removeItem('sessionId');
+  };
 
   return (
     <header className='header'>
@@ -47,6 +52,7 @@ export const Header = () => {
       <Menu
         className={isMenuOpen ? 'active' : ''}
         setIsMenuOpen={setIsMenuOpen}
+        logOutFromApp={logOutFromApp}
       />
 
       <Container className='header-container'>
@@ -77,6 +83,16 @@ export const Header = () => {
             to='/login'
           >
             {t.header.links.login}
+          </NavLink>
+        )}
+
+        {isLogin && (
+          <NavLink
+            to={''}
+            onClick={logOutFromApp}
+            className={({ isActive }) => (isActive ? 'active-link' : 'link')}
+          >
+            {t.header.links.logout}
           </NavLink>
         )}
 

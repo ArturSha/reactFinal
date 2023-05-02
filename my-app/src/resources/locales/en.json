@@ -3,7 +3,8 @@
     "links": {
       "movies": "Movies",
       "login": "Login",
-      "watchlist": "Watchlist"
+      "watchlist": "Watchlist",
+      "logout": "Logout"
     }
   },
   "loginPage": {
