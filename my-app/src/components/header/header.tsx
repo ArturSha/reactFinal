@@ -38,7 +38,6 @@ export const Header = () => {
   const logOutFromApp = () => {
     dispatch(logout());
     localStorage.removeItem('expires');
-    localStorage.removeItem('sessionId');
   };
 
   return (
